@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>EduRuz — Dunia Mainan Ilmu</title>
+<meta name="description" content="Dunia mainan ilmu untuk kanak-kanak — belajar sambil bermain.">
+<meta name="theme-color" content="#FF8C42">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <div class="logo-bar">
+    <div class="logo-text">Edu<span class="accent">Ruz</span></div>
+  </div>
+
+  <div class="lang-toggle">
+    <button data-lang="ms" class="active">BM</button>
+    <button data-lang="en">EN</button>
+  </div>
+
+  <!-- ============ SCREEN: HERO / START ============ -->
+  <section id="screen-hero" class="screen">
+    <div class="hero-wrap">
+      <svg class="hero-mascot" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="#FFD9B3"/>
+        <circle cx="38" cy="42" r="6" fill="#FF8C42"/>
+        <circle cx="62" cy="42" r="6" fill="#FF8C42"/>
+        <path d="M35 60 Q50 75 65 60" stroke="#FF8C42" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <circle cx="25" cy="55" r="5" fill="#FFD166"/>
+        <circle cx="75" cy="55" r="5" fill="#FFD166"/>
+      </svg>
+      <h1 id="heroTitle" class="hero-title">Dunia Mainan Ilmu untuk Si Kecil</h1>
+      <p id="heroSub" class="hero-sub">Belajar sambil bermain — seronok, mudah dan penuh warna!</p>
+    </div>
+
+    <div class="card">
+      <label id="nameLabel" class="field-label">Nama kamu siapa?</label>
+      <input id="nameInput" class="text-input" type="text" maxlength="20" placeholder="Tulis nama di sini..." autocomplete="off">
+
+      <div style="height:18px;"></div>
+      <label id="photoLabel" class="field-label" style="text-align:center;display:block;">Muat naik gambar diri kamu</label>
+      <div class="photo-upload-wrap">
+        <div id="photoCircle" class="photo-circle"></div>
+        <input id="photoFileInput" type="file" accept="image/*" style="display:none;">
+        <button id="photoUploadBtn" type="button" class="photo-upload-btn"><span id="photoUploadBtnText">Pilih Gambar</span></button>
+      </div>
+
+      <button id="startBtn" class="btn" style="margin-top:6px;">
+        <span id="startBtnText">JOM KE DUNIA MAINAN ILMU EDURUZ</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN: AGE SELECT ============ -->
+  <section id="screen-age" class="screen">
+    <div class="user-badge">
+      <span id="userBadgeAvatar"></span>
+      <span id="userBadgeName"></span>
+    </div>
+    <div class="user-greeting-banner">
+      <div id="greetingNameText" class="greeting-name">Hai!</div>
+      <div id="greetingSubText" class="greeting-sub"></div>
+    </div>
+    <h2 id="chooseAgeTitle" style="text-align:center;color:#E8650F;margin:14px 0 4px;">Pilih Peringkat Umur</h2>
+    <p id="chooseAgeSub" style="text-align:center;color:#9A7355;margin-bottom:6px;font-size:0.9rem;">Tekan untuk mula bermain</p>
+    <div id="ageGrid" class="age-grid"></div>
+  </section>
+
+  <!-- ============ SCREEN: CATEGORY SELECT ============ -->
+  <section id="screen-category" class="screen">
+    <div class="topbar">
+      <button id="backToAgeBtn" class="back-btn" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#FF8C42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2 id="categoryTitle">Pilih Permainan</h2>
+    </div>
+    <div id="categoryGrid" class="category-grid"></div>
+  </section>
+
+  <!-- ============ SCREEN: LEVEL SELECT ============ -->
+  <section id="screen-level" class="screen">
+    <div class="topbar">
+      <button id="backToCategoryBtn" class="back-btn" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#FF8C42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2 id="levelTitle">Pilih Tahap</h2>
+    </div>
+    <div id="levelGrid" class="level-grid"></div>
+  </section>
+
+  <!-- ============ SCREEN: GAME ============ -->
+  <section id="screen-game" class="screen">
+    <div class="topbar" style="margin-bottom:4px;">
+      <button id="backToLevelBtn" class="back-btn" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#FF8C42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div style="flex:1;"></div>
+    </div>
+    <div class="game-header">
+      <span id="gameProgressPill" class="progress-pill">1 / 5</span>
+      <div id="timerRingWrap" class="timer-ring">
+        <svg viewBox="0 0 60 60">
+          <circle class="track" cx="30" cy="30" r="23"/>
+          <circle id="timerRingProgress" class="progress" cx="30" cy="30" r="23"
+            stroke-dasharray="144.51" stroke-dashoffset="0"/>
+        </svg>
+        <div id="timerNum" class="timer-num">15</div>
+      </div>
+    </div>
+
+    <div class="progress-bar-track">
+      <div id="gameProgressBarFill" class="progress-bar-fill" style="width:0%"></div>
+    </div>
+
+    <div class="question-card">
+      <button id="speakBtn" class="speak-btn" aria-label="Speak question">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4V5z" fill="#5A3825"/><path d="M16 9a3 3 0 010 6M18.5 6.5a7 7 0 010 11" stroke="#5A3825" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div id="questionText" class="question-text"></div>
+      <div id="questionVisual" class="question-visual"></div>
+
+      <div id="feedbackBanner" class="feedback-banner"></div>
+
+      <div id="optionsList" class="options-list"></div>
+
+      <div id="nextBtnWrap" class="next-btn-wrap" style="display:none;">
+        <button id="nextBtn" class="btn">
+          <span id="nextBtnLabel">Seterusnya</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN: RESULT ============ -->
+  <section id="screen-result" class="screen">
+    <div class="result-wrap">
+      <h2 id="resultTitle" class="result-message">Hebatnya Kamu!</h2>
+
+      <div class="result-score-ring">
+        <svg viewBox="0 0 160 160">
+          <circle class="track" cx="80" cy="80" r="70"/>
+          <circle id="resultRingProgress" class="progress" cx="80" cy="80" r="70"/>
+        </svg>
+        <div class="result-score-num">
+          <span id="resultPct" class="big">0%</span>
+          <span id="resultScoreLbl" class="small">Markah</span>
+        </div>
+      </div>
+
+      <div class="result-stats">
+        <div class="result-stat">
+          <div id="resultCorrectNum" class="num correct-num">0</div>
+          <div id="resultCorrectLbl" class="lbl">Betul</div>
+        </div>
+        <div class="result-stat">
+          <div id="resultWrongNum" class="num wrong-num">0</div>
+          <div id="resultWrongLbl" class="lbl">Salah</div>
+        </div>
+      </div>
+
+      <div id="nextLevelBtnWrap" class="btn-row" style="margin-top:4px;display:none;">
+        <button id="nextLevelBtn" class="btn">Tahap Seterusnya</button>
+      </div>
+      <div class="btn-row" style="margin-top:10px;">
+        <button id="playAgainBtn" class="btn btn-pastel">Main Lagi</button>
+      </div>
+      <div class="btn-row" style="margin-top:6px;">
+        <button id="viewCertificateBtn" class="btn btn-secondary">Lihat Sijil Penyertaan</button>
+      </div>
+      <div class="btn-row" style="margin-top:6px;">
+        <button id="backToCategoriesBtn" class="btn btn-secondary">Pilihan Lain</button>
+        <button id="backToHomeBtn" class="btn btn-secondary">Kembali ke Utama</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN: CERTIFICATE ============ -->
+  <section id="screen-certificate" class="screen">
+    <div class="topbar">
+      <button id="closeCertificateBtn" class="back-btn" aria-label="Back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#FF8C42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2>Sijil Penyertaan</h2>
+    </div>
+
+    <div id="certificateCard" class="certificate-wrap">
+      <svg class="cert-medal" viewBox="0 0 64 64"><circle cx="32" cy="26" r="18" fill="#FFD166" stroke="#E8650F" stroke-width="2"/><path d="M22 40l-6 18 16-8 16 8-6-18" fill="#FF8C42"/><circle cx="32" cy="26" r="10" fill="#FFF6E9"/><text x="32" y="31" font-size="14" font-weight="800" text-anchor="middle" fill="#E8650F">★</text></svg>
+      <div id="certTitleText" class="cert-title">SIJIL PENYERTAAN</div>
+      <div id="certSubText" class="cert-sub">Diberikan kepada</div>
+      <div id="certPhotoWrap" style="margin: 8px 0;"></div>
+      <div id="certUserName" class="cert-name">Nama</div>
+      <div id="certCompletedText" class="cert-detail">Telah berjaya menamatkan permainan</div>
+      <div id="certCategoryLevel" class="cert-detail" style="font-weight:700;color:#E8650F;"></div>
+      <div id="certScoreText" class="cert-detail"></div>
+    </div>
+
+    <div class="btn-row" style="margin-top:18px;">
+      <button id="downloadCertBtn" class="btn">Muat Turun Sijil</button>
+    </div>
+  </section>
+
+</div>
+
+<button id="soundToggleFab" class="sound-toggle-fab" aria-label="Toggle sound">
+  <span id="soundToggleIcon" style="font-size:1.3rem;">🔊</span>
+</button>
+
+<script src="./js/data/config.js"></script>
+<script src="./js/data/questions.js"></script>
+<script src="./js/app.js"></script>
+</body>
+</html>
